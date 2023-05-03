@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Post;
+use App\Form\CommentType;
 use App\Form\PostType;
+use App\Repository\CommentRepository;
 use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -58,7 +61,7 @@ class PostController extends AbstractController
         ]);
     }
 
-    public function show(int $id, PostRepository $repository): Response
+    public function show(int $id, PostRepository $repository, Request $request, CommentRepository $commentRepository): Response
     {
         // Récupère l'article correspondant à l'id qui se trouve dans l'url
         $post = $repository->find($id);
@@ -68,9 +71,40 @@ class PostController extends AbstractController
             throw $this->createNotFoundException("L'article $id n'existe pas");
         }
 
+        // Gestion des commentaires
+        // Récupération de tous les commentaires de l'article
+
+        // 1ère façon de faire : avec le CommentRepository
+        $comments = $commentRepository->findBy(['post' => $post]);
+
+        // 2ème façon de faire : avec la méthode getComments()
+        $comments = $post->getComments();
+
+        // Création d'un commentaire vide
+        $comment = new Comment();
+
+        // On précise quel article est rattaché au commentaire
+        // Lors de l'insertion du commentaire, il utilisera l'id du post rattaché
+        $comment->setPost($post);
+
+        $form = $this->createForm(CommentType::class, $comment);
+
+        // Soumission du formulaire
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Enregistrement du commentaire
+            $commentRepository->save($comment, true);
+
+            // Redirection vers la page de l'article
+            return $this->redirectToRoute('posts_show', ['id' => $post->getId()]);
+        }
+
         // Affichage de la vue
         return $this->render('post/show.html.twig', [
-            'post' => $post
+            'post' => $post,
+            'form' => $form,
+            'comments' => $comments
         ]);
     }
 }

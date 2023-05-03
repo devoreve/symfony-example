@@ -6,7 +6,7 @@
     <nav>
         <a href="{{ path('posts_create', {id: post.id}) }}" class="btn btn-success float-end">Modifier</a>
     </nav>
-    <article>
+    <article class="my-3">
         <header class="my-2 py-2 border-bottom">
             <h1>{{ post.title }}</h1>
             <p class="small">Rédigé le {{ post.createdAt|date('d/m/Y') }} dans la catégorie <em>{{ post.category.name }}</em></p>
@@ -14,4 +14,24 @@
 
         {{ post.description|nl2br }}
     </article>
+
+    <section id="comments" class="my-2 py-2 border-top">
+        <h2 class="h4">Espace commentaires</h2>
+
+        {{ form(form) }}
+
+        <ul class="py-2 my-2 border-top list-unstyled">
+            {% for comment in comments %}
+                <li>
+                    <article>
+                        <header>
+                            <h3>{{ comment.nickname }}</h3>
+                            <p class="small">Rédigé le {{ comment.createdAt|date('d/m/Y') }} à {{ comment.createdAt|date('H:i') }}</p>
+                        </header>
+                        {{ comment.content }}
+                    </article>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
 {% endblock %}
