@@ -1,0 +1,63 @@
+homepage:
+    path: /
+    controller: App\Controller\DefaultController::homepage
+
+about:
+    path: /about
+    controller: App\Controller\DefaultController::about
+
+hello:
+    path: /hello/{name?Jean}
+    controller: App\Controller\HelloController::index
+
+actors_index:
+    path: /actors
+    controller: App\Controller\ActorController::index
+
+actors_show:
+    path: /actors/{id}
+    controller: App\Controller\ActorController::show
+
+customers_index:
+    path: /customers
+    controller: App\Controller\CustomerController::index
+
+customers_show:
+    path: /customers/{id}
+    controller: App\Controller\CustomerController::show
+
+movies_index:
+    path: /movies
+    controller: App\Controller\MovieController::index
+
+movies_show:
+    path: /movies/{id}
+    controller: App\Controller\MovieController::show
+
+posts_create:
+    path: /posts/create/{id?}
+    controller: App\Controller\PostController::create
+
+posts_index:
+    path: /posts
+    controller: App\Controller\PostController::index
+
+posts_show:
+    path: /posts/{id}
+    controller: App\Controller\PostController::show
+
+products_create:
+    path: /products/create/{id?}
+    controller: App\Controller\ProductController::create
+
+products_index:
+    path: /products
+    controller: App\Controller\ProductController::index
+
+products_show:
+    path: /products/{id}
+    controller: App\Controller\ProductController::show
+
+categories_index:
+    path: /categories
+    controller: App\Controller\CategoryController::index

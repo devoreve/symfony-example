@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des acteurs{% endblock %}
+
+{% block content %}
+    <h1>Liste des acteurs</h1>
+
+    <ul class="list-unstyled">
+        {% for actor in actors %}
+            <li><a href="{{ path('actors_show', {id: actor.actor_id}) }}">{{ actor.first_name|lower|capitalize }} {{ actor.last_name }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail de : {{ customer.first_name|lower }} {{ customer.last_name|lower }}{% endblock %}
+
+{% block content %}
+    <h1>Détail du client</h1>
+
+    <section id="customer-info" class="my-2 py-2 border-top">
+        <h2>Informations du client</h2>
+
+        <dl>
+            <dt>Nom complet</dt>
+            <dd>{{ customer.first_name|lower|capitalize }} {{ customer.last_name }}</dd>
+            <dt>Email</dt>
+            <dd>{{ customer.email|lower }}</dd>
+            <dt>Adresse</dt>
+            <dd>{{ customer.address }}, {{ customer.postal_code }} {{ customer.city }}</dd>
+        </dl>
+    </section>
+
+    <section id="customer-films" class="my-2 py-2 border-top">
+        <h2>Films loués par le client</h2>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Titre du film</th>
+                    <th>Montant</th>
+                    <th>Date de retour</th>
+                    <th>Date du paiement</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for movie in movies %}
+                    <tr>
+                        <td>{{ movie.title }}</td>
+                        <td>{{ movie.amount|number_format(2) }}€</td>
+                        <td>{{ movie.return_date|date('d/m/Y H:i') }}</td>
+                        <td>{{ movie.payment_date|date('d/m/Y H:i') }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+{% endblock %}

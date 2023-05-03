@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste de tous les produits{% endblock %}
+
+{% block content %}
+    <h1>Liste des produits</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Date de création</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.description }}</td>
+                    <td>{{ product.price|number_format(2) }}€</td>
+                    <td>{{ product.createdAt|date('d/m/Y') }}</td>
+                    <td>
+                        <a href="{{ path('products_show', {id: product.id}) }}">Voir</a> |
+                        <a href="{{ path('products_create', {id: product.id}) }}">Modifier</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

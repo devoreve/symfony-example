@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Symfony - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.2.3/superhero/bootstrap.min.css" integrity="sha512-OIkcyk7xM5npH4qAW0dlLVzXsAzumZZnHfOB3IL17cXO6bNIK4BpYSh0d63R1llgUcrWZ709bCJhenNrEsno0w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{{ path('homepage') }}">Symfony</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ path('homepage') }}">Accueil</a>
+                        </li>
+{#                        <li class="nav-item">#}
+{#                            <a class="nav-link" href="{{ path('about') }}">A propos</a>#}
+{#                        </li>#}
+{#                        <li class="nav-item">#}
+{#                            <a href="{{ path('hello') }}" class="nav-link">Hello</a>#}
+{#                        </li>#}
+{#                        <li class="nav-item">#}
+{#                            <a href="{{ path('actors_index') }}" class="nav-link">Liste des acteurs</a>#}
+{#                        </li>#}
+{#                        <li class="nav-item">#}
+{#                            <a href="{{ path('customers_index') }}" class="nav-link">Liste des clients</a>#}
+{#                        </li>#}
+{#                        <li class="nav-item">#}
+{#                            <a href="{{ path('movies_index') }}" class="nav-link">Liste des films</a>#}
+{#                        </li>#}
+                        <li class="nav-item">
+                            <a href="{{ path('posts_create') }}" class="nav-link">Créer un article</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('posts_index') }}" class="nav-link">Tous les articles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('products_create') }}" class="nav-link">Créer un produit</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('products_index') }}" class="nav-link">Tous les produits</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('categories_index') }}" class="nav-link">Toutes les catégories</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="container my-2">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

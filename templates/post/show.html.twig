@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+    <nav>
+        <a href="{{ path('posts_create', {id: post.id}) }}" class="btn btn-success float-end">Modifier</a>
+    </nav>
+    <article>
+        <header class="my-2 py-2 border-bottom">
+            <h1>{{ post.title }}</h1>
+            <p class="small">Rédigé le {{ post.createdAt|date('d/m/Y') }} dans la catégorie <em>{{ post.category.name }}</em></p>
+        </header>
+
+        {{ post.description|nl2br }}
+    </article>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ movie.title|lower }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <section class="col mx-2 px-2">
+            <article>
+                <header class="border-bottom py-2 my-2">
+                    <h1>{{ movie.title }}</h1>
+                    <p class="small">Sorti en {{ movie.release_year }} dans la catégorie {{ movie.cat }}</p>
+                </header>
+                {{ movie.description }}
+            </article>
+        </section>
+
+        <section class="col">
+            <h2>Liste des acteurs du film</h2>
+
+            <ul class="list-unstyled">
+                {% for actor in actors %}
+                    <li><a class="text-decoration-none" title="Voir la page de l'acteur" href="{{ path('movies_show', {id: actor.actor_id}) }}">{{ actor.first_name|lower|capitalize }} {{ actor.last_name }}</a></li>
+                {% endfor %}
+            </ul>
+        </section>
+    </div>
+{% endblock %}

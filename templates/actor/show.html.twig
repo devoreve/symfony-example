@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail de : {{ actor.first_name|lower }} {{ actor.last_name|lower }}{% endblock %}
+
+{% block content %}
+    <h1>{{ actor.first_name|lower|capitalize }} {{ actor.last_name }}</h1>
+
+    <section id="filmography" class="my-2 py-2 border-top">
+        <h2>Liste des films de l'acteur</h2>
+
+        <ul class="list-unstyled">
+            {% for movie in movies %}
+                <li>{{ movie.title|lower|capitalize }} ({{ movie.release_year }})</li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}

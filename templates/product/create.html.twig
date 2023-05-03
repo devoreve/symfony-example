@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ id ? "Modifier un produit" : "Créer un produit" }}{% endblock %}
+
+{% block content %}
+    <h1>{{ id ? "Modifier un produit existant" : "Créer un nouveau produit" }}</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.price) }}
+
+        <div class="mt-4">
+            {{ form_row(form.submit, {label: id ? "Modifier le produit" : "Créer le produit"}) }}
+        </div>
+    {{ form_end(form) }}
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des films{% endblock %}
+
+{% block content %}
+    <h1>Liste des films</h1>
+
+    <section class="row row-cols-1 row-cols-md-3 g-4">
+        {% for movie in movies %}
+            <div class="col">
+                <article class="card">
+                    <div class="card-body">
+                        <header class="border-bottom pb-2 mb-2">
+                            <h2 class="card-title h5">{{ movie.title }}</h2>
+                            <p class="small">
+                                Date de sortie : {{ movie.release_year }}<br>
+                                Catégorie : {{ movie.cat }}
+                            </p>
+                        </header>
+                        <p class="card-text">{{ movie.description|slice(0, 200) }}</p>
+
+                        <nav>
+                            <a class="btn btn-primary" href="{{ path('movies_show', {id: movie.film_id}) }}">Aller sur la page du film</a>
+                        </nav>
+                    </div>
+                </article>
+            </div>
+        {% endfor %}
+    </section>
+{% endblock %}

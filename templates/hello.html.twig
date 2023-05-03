@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello{% endblock %}
+
+{% block content %}
+    <h1>Hello world</h1>
+
+    <p>Bonjour {{ name|upper }} tu as {{ age }} ans</p>
+
+    <p>Email : {{ user.email }}</p>
+    <p>Nom complet : {{ user.fullname }}</p>
+    <p>{{ days[0] }}</p>
+
+    {% if age >= 18 %}
+        <p class="alert alert-success">Vous êtes majeur(e)</p>
+    {% else %}
+        <p class="alert alert-warning">Vous êtes mineur(e)</p>
+    {% endif %}
+
+    <ul>
+        {% for day in days %}
+            <li>{{ day }}</li>
+        {% endfor %}
+    </ul>
+
+    <p>Cet article a coûté {{ product.price|number_format(2) }}€</p>
+    <p>L'article a été acheté le {{ product.buyDate|date('d/m/Y') }}</p>
+{% endblock %}
