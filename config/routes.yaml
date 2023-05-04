@@ -10,6 +10,18 @@ hello:
     path: /hello/{name?Jean}
     controller: App\Controller\HelloController::index
 
+register:
+    path: /register
+    controller: App\Controller\RegistrationController::register
+
+login:
+    path: /login
+    controller: App\Controller\LoginController::index
+
+logout:
+    path: /logout
+    methods: GET
+
 actors_index:
     path: /actors
     controller: App\Controller\ActorController::index

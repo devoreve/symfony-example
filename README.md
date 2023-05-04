@@ -18,8 +18,8 @@ Dans le fichier *config/routes.yaml*, créer la route pour la page d'accueil.
 
 ```yaml
 homepage:
-	path: /
-    controller: App\Controller\DefaultController::homepage
+    path: /
+        controller: App\Controller\DefaultController::homepage
 ```
 
 Lorsque vous allez sur la page dont le chemin est "/", vous avez comme erreur que le contrôleur n'existe pas. On va donc maintenant créer le contrôleur.
@@ -402,7 +402,7 @@ Remplacer par le mot de passe correspondant et par le nom de la base de données
 
 #### Création de la base de données
 
-On demande à Doctrine de créer pour nous la base de données (à partir des informations renseignées dans le fichier *.env*). 
+On demande à Doctrine de créer pour nous la base de données (à partir des informations renseignées dans le fichier *.env*).
 Pour cela, se placer à l'aide du terminal dans le dossier Symfony puis taper la commande suivante :
 
 ```
@@ -448,7 +448,7 @@ On y ajoute un champ createdAt puis on laisse les autres choix par défaut (lais
 
 On tape la commande pour créer une migration puis on l'exécute.
 
-#### Utiliser l'orm pour ajouter ou récupérer des données
+#### Utiliser l'orm pour ajouter, mettre à jour ou récupérer des données
 
 ```php
 use App\Entity\Post;
@@ -498,8 +498,29 @@ class PostController extends AbstractController
             'post' => $post
         ]);
     }
+    
+    public function edit(int $id, PostRepository $repository): Response
+    {
+    	// Récupère l'article correspondant à l'id qui se trouve dans l'url
+        $post = $repository->find($id);
+        
+        // Modification d'une propriété
+        $post->setTitle('Titre modifié');
+        
+        // Modification dans la base de données
+        $repository->save($post, true);
+
+        return new Response("L'article {$post->getId()} a bien été modifié !");
+    }
 }
 ```
+
+#### Relation entre entités
+
+Il existe un type de champ particulier dans les entités : le type *relation*. Ce dernier permet de mettre en place un lien entre 2 classes (et donc une relation dans la base de données).
+Il faut choisir le type de relation souhaitée (many to one, one to many, many to many, one to one).
+
+Une fois que la relation a été établie, faire la migration en base de données et vous constaterez qu'une relation entre les 2 tables aura bien été créée.
 
 ## Formulaire
 
@@ -603,3 +624,64 @@ class PostController extends AbstractController
     }
 }
 ```
+
+## Inscription/Connexion
+
+[Voir la documentation](https://symfony.com/doc/current/security.html)
+
+### Créer une entité User
+
+La première étape pour gérer notre système d'authentification va être de créer un entité User, non pas à l'aide de la commande "make:entity" mais à l'aide d'une autre commande :
+```
+php bin/console make:user
+```
+
+Une fois l'entité créée, faire la migration en base de données.
+
+### Créer la page d'inscription
+
+Taper la commande :
+```
+php bin/console make:registration-form
+```
+
+Modifier éventuellement le type de formulaire créé pour correspondre à vos besoins.
+
+### Créer la page de connexion
+
+Suivre la doc à cette [url](https://symfony.com/doc/current/security.html#authenticating-users).
+
+### Récupérer l'utilisateur connecté
+
+Dans les templates Twig, il est possible de récupérer l'utilisateur connecté (et de vérifier s'il est connecté) à l'aide de la syntaxe suivante :
+```twig
+{% if is_grandted('IS_AUTHENTICATED_FULLY') %}
+	<p>{{ app.user.email }}</p>
+{% endif %}
+```
+
+Dans les contrôleurs, il est possible de récupérer l'utilisateur connecté (et de vérifier s'il est connecté) à l'aide de la syntaxe suivante :
+```php
+// usually you'll want to make sure the user is authenticated first,
+// see "Authorization" below
+$this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+// returns your User object, or null if the user is not authenticated
+// use inline documentation to tell your editor your exact User class
+/** @var \App\Entity\User $user */
+$user = $this->getUser();
+```
+
+## Validation des données
+
+[Voir la doc](https://symfony.com/doc/current/validation.html)
+
+Il est possible d'utiliser le système de validation intégré à Symfony en rajoutant des contraintes au niveau de l'entité ou dans les formulaires.
+Grâce à ces contraintes vous allez pouvoir vérifier diverses choses au niveau de vos champs (leur taille, si le champ n'existe pas déjà en base de données...).
+
+
+
+
+
+
+
