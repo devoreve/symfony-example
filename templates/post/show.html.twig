@@ -9,7 +9,7 @@
     <article class="my-3">
         <header class="my-2 py-2 border-bottom">
             <h1>{{ post.title }}</h1>
-            <p class="small">Rédigé le {{ post.createdAt|date('d/m/Y') }} dans la catégorie <em>{{ post.category.name }}</em></p>
+            <p class="small">Rédigé par {{ post.user.email }} le {{ post.createdAt|date('d/m/Y') }} dans la catégorie <em>{{ post.category.name }}</em></p>
         </header>
 
         {{ post.description|nl2br }}

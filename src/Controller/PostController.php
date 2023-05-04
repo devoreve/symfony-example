@@ -16,6 +16,10 @@ class PostController extends AbstractController
 {
     public function create(PostRepository $repository, Request $request, ?int $id = null): Response
     {
+        // Si l'utilisateur est authentifié, il a accès à cette page
+        // Sinon il est redirigé vers la page de connexion
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         // Afficher un formulaire ou enregistrer l'article en base de données (si le formulaire a été soumis)
         if (! $id) {
             // Création d'un objet vide
@@ -36,6 +40,12 @@ class PostController extends AbstractController
 
         // Si le formulaire est soumis et est valide
         if ($form->isSubmitted() && $form->isValid()) {
+            // Récupération de l'utilisateur connecté
+            $user = $this->getUser();
+
+            // On indique que l'article a comme auteur l'utilisateur connecté
+            $post->setUser($user);
+
             // Enregistrement de l'article en base de données
             $repository->save($post, true);
 
