@@ -103,6 +103,11 @@ class PostController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+            $user = $this->getUser();
+            $comment->setUser($user);
+
             // Enregistrement du commentaire
             $commentRepository->save($comment, true);
 

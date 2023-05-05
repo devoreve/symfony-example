@@ -18,14 +18,21 @@
     <section id="comments" class="my-2 py-2 border-top">
         <h2 class="h4">Espace commentaires</h2>
 
-        {{ form(form) }}
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            {{ form(form) }}
+        {% else %}
+            <div class="alert alert-primary">
+                <p>Vous devez être connecté(e) pour poster un commentaire</p>
+                <a href="{{ path('login') }}">Me connecter</a>
+            </div>
+        {% endif %}
 
         <ul class="py-2 my-2 border-top list-unstyled">
             {% for comment in comments %}
                 <li>
                     <article>
                         <header>
-                            <h3>{{ comment.nickname }}</h3>
+                            <h3>{{ comment.user.name }}</h3>
                             <p class="small">Rédigé le {{ comment.createdAt|date('d/m/Y') }} à {{ comment.createdAt|date('H:i') }}</p>
                         </header>
                         {{ comment.content }}
