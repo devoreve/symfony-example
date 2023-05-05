@@ -21,6 +21,7 @@ class Comment
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private ?Post $post = null;
 
     #[ORM\ManyToOne(inversedBy: 'comments', fetch: 'EAGER')]

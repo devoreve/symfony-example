@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block content %}
+    <nav class="float-end my-2">
+        <a href="{{ path('posts_create') }}" class="btn btn-primary">Créer un article</a>
+    </nav>
+
+    <h1>Administration</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Catégorie</th>
+                <th>Date de création</th>
+                <th>Auteur</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for post in posts %}
+                <tr>
+                    <td><a href="{{ path('posts_show', {id: post.id}) }}">{{ post.title }}</a></td>
+                    <td>{{ post.category.name }}</td>
+                    <td>{{ post.createdAt|date('d/m/Y H:i') }}</td>
+                    <td>{{ post.user.name }}</td>
+                    <td>
+                        <a href="{{ path('posts_create', {id: post.id}) }}">Modifier</a> |
+                        <a href="{{ path('posts_delete', {id: post.id}) }}">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -58,6 +58,11 @@ posts_show:
     path: /posts/{id}
     controller: App\Controller\PostController::show
 
+posts_delete:
+    path: /posts/delete/{id}
+    controller: App\Controller\PostController::delete
+    methods: GET
+
 categories_index:
     path: /categories
     controller: App\Controller\CategoryController::index
@@ -65,6 +70,10 @@ categories_index:
 categories_show:
     path: /categories/{id}
     controller: App\Controller\CategoryController::show
+
+admin:
+    path: /admin
+    controller: App\Controller\AdminController::index
 
 products_create:
     path: /products/create/{id?}

@@ -8,6 +8,7 @@ use App\Form\CommentType;
 use App\Form\PostType;
 use App\Repository\CommentRepository;
 use App\Repository\PostRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,6 +30,12 @@ class PostController extends AbstractController
 
             if (! $post) {
                 throw $this->createNotFoundException("L'article n'existe pas");
+            }
+
+            // Si l'utilisateur connecté n'est pas l'auteur de l'article
+            if ($this->getUser() !== $post->getUser()) {
+                // L'accès est refusé sauf si on est admin
+                $this->denyAccessUnlessGranted('ROLE_ADMIN');
             }
         }
 
@@ -121,5 +128,21 @@ class PostController extends AbstractController
             'form' => $form,
             'comments' => $comments
         ]);
+    }
+
+    public function delete(EntityManagerInterface $manager, int $id): Response
+    {
+        // Si l'utilisateur n'est pas admin on refuse l'accès à cette action
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        // Récupération de l'article correspondant à l'id
+        $post = $manager->getReference(Post::class, $id);
+
+        // Suppression de l'article dans la base de données
+        $manager->remove($post);
+        $manager->flush();
+
+        // Redirection vers la page d'administration
+        return $this->redirectToRoute('admin');
     }
 }
