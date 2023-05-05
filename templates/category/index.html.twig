@@ -7,7 +7,7 @@
 
     <ul>
         {% for category in categories %}
-            <li>{{ category.name }}</li>
+            <li><a href="{{ path('categories_show', {id: category.id}) }}">{{ category.name }} ({{ category.totalPosts}})</a></li>
         {% endfor %}
     </ul>
 {% endblock %}

@@ -58,6 +58,14 @@ posts_show:
     path: /posts/{id}
     controller: App\Controller\PostController::show
 
+categories_index:
+    path: /categories
+    controller: App\Controller\CategoryController::index
+
+categories_show:
+    path: /categories/{id}
+    controller: App\Controller\CategoryController::show
+
 products_create:
     path: /products/create/{id?}
     controller: App\Controller\ProductController::create
@@ -69,7 +77,3 @@ products_index:
 products_show:
     path: /products/{id}
     controller: App\Controller\ProductController::show
-
-categories_index:
-    path: /categories
-    controller: App\Controller\CategoryController::index

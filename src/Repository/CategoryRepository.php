@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Category;
+use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -43,6 +45,17 @@ class CategoryRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('c')
             ->orderBy('c.name')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllWithTotalPosts(): array
+    {
+        return $this->createQueryBuilder('c')
+            ->select('COUNT(p.id) AS totalPosts', 'c.id', 'c.name')
+            ->leftJoin(Post::class, 'p', Join::WITH, 'p.category = c.id')
+            ->addGroupBy('c.id')
+            ->addGroupBy('c.name')
             ->getQuery()
             ->getResult();
     }

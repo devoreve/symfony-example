@@ -1,0 +1,24 @@
+<section class="row row-cols-1 row-cols-md-3 g-4 my-2">
+    {% if posts is not empty %}
+        {% for post in posts %}
+            <div class="col">
+                <article class="card">
+                    <div class="card-body">
+                        <header class="border-bottom pb-2 mb-2">
+                            <h2 class="card-title h5">{{ post.title }}</h2>
+                            <p class="small">Rédigé le {{ post.createdAt|date('d/m/Y') }} dans la catégorie <em>{{ post.category.name }}</em></p>
+                        </header>
+                        {{ post.description|slice(0, 100) }}[...](<a href="{{ path('posts_show', {id: post.id}) }}">Voir la suite</a>)
+
+                        <nav class="my-2 border-top py-2">
+                            <a class="btn btn-primary" href="{{ path('posts_show', {id: post.id}) }}">Voir l'article</a>
+                            <a class="btn btn-success" href="{{ path('posts_create', {id: post.id}) }}">Modifier l'article</a>
+                        </nav>
+                    </div>
+                </article>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Aucun article trouvé</p>
+    {% endif %}
+</section>

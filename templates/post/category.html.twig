@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste de tous les articles{% endblock %}
+{% block title %}Liste de tous les articles de la catégorie {{ category.name }}{% endblock %}
 
 {% block content %}
     <nav class="float-end my-2">
         <a href="{{ path('posts_create') }}" class="btn btn-primary">Créer un article</a>
     </nav>
 
-    <h1>Liste des articles</h1>
+    <h1>Liste de tous les articles de la catégorie {{ category.name }}</h1>
 
     {{ include('post/partials/posts.html.twig', {posts: posts}) }}
 {% endblock %}
