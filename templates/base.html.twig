@@ -26,13 +26,10 @@
                             <a class="nav-link active" aria-current="page" href="{{ path('homepage') }}">Accueil</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ path('posts_create') }}" class="nav-link">Créer un article</a>
+                            <a href="{{ path('posts_index') }}" class="nav-link">Blog</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ path('posts_index') }}" class="nav-link">Tous les articles</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ path('categories_index') }}" class="nav-link">Toutes les catégories</a>
+                            <a href="{{ path('categories_index') }}" class="nav-link">Catégories</a>
                         </li>
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                             <li class="nav-item">

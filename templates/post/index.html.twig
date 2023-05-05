@@ -3,9 +3,13 @@
 {% block title %}Liste de tous les articles{% endblock %}
 
 {% block content %}
+    <nav class="float-end my-2">
+        <a href="{{ path('posts_create') }}" class="btn btn-primary">Créer un article</a>
+    </nav>
+
     <h1>Liste des articles</h1>
 
-    <section class="row row-cols-1 row-cols-md-3 g-4">
+    <section class="row row-cols-1 row-cols-md-3 g-4 my-2">
         {% for post in posts %}
             <div class="col">
                 <article class="card">
